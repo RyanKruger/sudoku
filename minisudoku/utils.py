@@ -69,7 +69,7 @@ def decrement_array(input_list: list, base: int) -> list:
 
     # Check for invalid radix
     if base < 2:
-        raise KeyError(f"ERROR: Can't decrement a number with base {base}.")
+        raise ValueError(f"ERROR: Can't decrement a number with base {base}.")
 
     # Check for invalid arrays
     if input_list is None:
