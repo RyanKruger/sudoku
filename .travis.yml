@@ -1,7 +1,8 @@
 language: python
 python:
-  - "3.8"
-#install:
-#  - pip install -r requirements.txt
+- '3.8'
 script:
-  - pytest
+- pytest
+notifications:
+  slack:
+    secure: OZXgRG/k/vRpRQLEmBtk9zJ2IK6iM8rETG0LpnaSOAHnQfcHPRqj+YgkG4PvPm+Xg1tOoo7ZmjDLxWNCT0tgOo4eL9j0JOmgEClXjqDJbjkdx7qPdoa6dAxmr317B9NbWSmXSE88r0fTFqam/UB/e4FpEVFCwMFo5rjO3T7YLupMiG+a61juaGPdobrj8bkOCoeTp/NsQlWm1khtYFyuT2uyWZs2TgKVPT6y1Z5ipt/7o5s3AoGOztK8xCXceQsza3PV828FAgzmQP901mH8I+qqfs0bJkLjzQLZNANGvLq0uNY2/YhSFjHiXxaBJ1eTc/Ay/5iiG4pIoNzV+z4Zs+ujJ3VSQzNhy/Ua/SoWzQwFY49A3aSpIdQkCI+sG0a3+b1Gmz75QEMQkNPdcwmF7wDADqY5UkpCuimxak/XAEK53kxPHDsxmZNFmtEZhaIdb3RpqM5ADNNLX9Ym87AyRrrDT7gyAymMDa13TXSE43v/WcLXIWVxbDz6OR0twUv1flbBE2oNruZgWdfdGF/2IOOv62L0HC3SLcRbDNvV71Qn7cucSoE9Nzt6IIS1JTNewgz4LIUEg48WxGSy+475Efh+rZUUiVtfmLZo8sMFL0Hqd3yTkENdBwynl/3i28TfyDbIOqQjy/MxzjABiBB2HGNtVAqscg3q69B3IKVm7vM=
