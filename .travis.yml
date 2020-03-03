@@ -1,8 +1,8 @@
 language: python
 python:
   - '3.8'
-install:
-  - pip install .
+before_install:
+  - python setup.py install
 script:
   - pytest
 notifications:
