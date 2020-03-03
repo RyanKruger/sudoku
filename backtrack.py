@@ -18,39 +18,53 @@ import math
     --------------------------------- 
 
 """
+
+class ElementNotFoundError(Exception):
+    pass
+
 class Board:
 
     # An empty board
     board = [
-        [0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 1, 2, 0, 3, 4, 5, 6, 7],
-        [0, 3, 4, 5, 0, 6, 1, 8, 2],
-        [0, 0, 1, 0, 5, 8, 2, 0, 6],
-        [0, 0, 8, 6, 0, 0, 0, 0, 1],
-        [0, 2, 0, 0, 0, 7, 0, 5, 0],
-        [0, 0, 3, 7, 0, 5, 0, 2, 8],
-        [0, 8, 0, 0, 6, 0, 7, 0, 0],
-        [2, 0, 7, 0, 8, 3, 6, 1, 5]
+        0, 0, 0, 0, 0, 0, 0, 0, 0
+        0, 1, 2, 0, 3, 4, 5, 6, 7
+        0, 3, 4, 5, 0, 6, 1, 8, 2
+        0, 0, 1, 0, 5, 8, 2, 0, 6
+        0, 0, 8, 6, 0, 0, 0, 0, 1
+        0, 2, 0, 0, 0, 7, 0, 5, 0
+        0, 0, 3, 7, 0, 5, 0, 2, 8
+        0, 8, 0, 0, 6, 0, 7, 0, 0
+        2, 0, 7, 0, 8, 3, 6, 1, 5
     ]
 
     def get_width(self):
-        pass
+        return math.sqrt(len(self.board))
 
 def fill_grid(board: Board) -> bool:
+    '''Backtracking Algorithm. Uses recursion to handle
+    multiple incorrect digit placements by backtracking to
+    an earlier state to try a different path.
+
+    Args:
+        board: Sudoku board to operate on.
+    
+    Returns:
+        Boolean of if a valid digit could be placed.
+    '''
     unassigned_cell = find_unassigned()
     if unassigned_cell is None:
         return True
     for digit in range(1,9):
         good_fit = is_good_fit(board, unassigned_cell, digit)
         if good_fit == True:
-            assign_digit(board, unassigned_cell, digit)
-            recursion_successful = fill_grid(board)
+                board[unassigned_cell] = digit # Assign the digit.
+                recursion_successful = fill_grid(board)
             if recursion_succesful:
                 return True
             else:
                 assign_digit(unassigned_cell, 0) # Remove the digit.
-    else:
-        return False
+    return False
+
 
 def find_unassigned(board: Board) -> int:
     '''Find an empty cell in the given sudoku board.
@@ -60,22 +74,35 @@ def find_unassigned(board: Board) -> int:
     Returns:
         Index of the unassigned space, or None if none.
     '''
-
+    if board is None:
+        raise ValueError("ERROR: board is None. Can't find_unassigned.")
     for i, cell in enumerate(board):
         if cell == 0:
-            return i
-    else:
-        return None
+            return i    
+    return None
 
 
 def is_good_fit(board: Board, unassigned_cell: int, digit: int) -> bool:
+    '''Checks to see if ``digit`` would be a legal fit in ``unassigned_cell``.
+
+    Args:
+        board: Sudoku board to operate on.
+        unassigned_cell: Index of the location in ``board`` to test.
+        digit: Digit to try to place in the sudoku ``board``.
+
+    Returns:
+        Boolean of if the digit will fit in the ``board`` or not.
+    '''
+    if board is None:
+        raise ValueError("ERROR: board is None. Can't is_good_fit.")
     if not check_rows(board, unassigned_cell, digit):
         return False
-    '''if not check_cols(board, unassigned_cell, digit):
+    if not check_cols(board, unassigned_cell, digit):
         return False
     if not check_tile(board, unassigned_cell, digit):
-        return False'''
+        return False
     return True
+
 
 def check_rows(board: Board, unassigned_cell: int, digit: int) -> bool:
     '''Checks to see if the ``digit`` at ``unassigned_cell`` is valid for its row.
@@ -88,11 +115,14 @@ def check_rows(board: Board, unassigned_cell: int, digit: int) -> bool:
     Returns:
         Boolean of if the digit will fit in that row or not.
     '''
-    row = unassigned_cell // board.get_width()
     board_width = board.get_width()
+    if board_width < 1:
+        raise ValueError(f"ERROR: board_width is {board_width}. Can't check_rows.")
+    row = unassigned_cell // board_width
     for i in range(row*board_width, row*board_width+board_width):
         if board[i] == digit:
             return False # Digit already exists in this row
+
 
 def check_cols(board: Board, unassigned_cell: int, digit: int) -> bool:
     '''Checks to see if the ``digit`` at ``unassigned_cell`` is valid for its collumn.
@@ -105,8 +135,10 @@ def check_cols(board: Board, unassigned_cell: int, digit: int) -> bool:
     Returns:
         Boolean of if the digit will fit in that collumn or not.
     '''
-    col = unassigned_cell % board.get_width()
     board_width = board.get_width()
+    if board_width < 1:
+        raise ValueError(f"ERROR: board_width is {board_width}. Can't check_cols.")
+    col = unassigned_cell % board_width
     for i in range(col, (board_width**2)+col, board_width):
         if board[i] == digit:
             return False # Digit already exists in this collumn
@@ -126,7 +158,7 @@ def check_tile(board: Board, unassigned_cell: int, digit: int) -> bool:
     '''
     board_width = board.get_width()
     tile_width = math.sqrt(board_width)
-    tile_num = find_tile_num(board, unassigned_cell)
+    tile_num = None
 
     four_indices = [[0,1,4,5],     # Tile 0
                     [2,3,6,7],     # Tile 1
@@ -150,15 +182,18 @@ def check_tile(board: Board, unassigned_cell: int, digit: int) -> bool:
     else if board_width == 9:
         lookup_table = nine_indices
 
-    for i in range(board_width):
+    for indices in lookup_table:
         try:
-            tile_num = nine_indices.index(unassigned_cell)
+            tile_num = indices.index(unassigned_cell)
+            break
         except ValueError:
             pass # Keep looking
+    else:
+        raise ElementNotFoundError("ERROR: Could not find element in lookup table.")
 
-    for i, tile in enumerate(lookup_table):
-        if board[i] == digit:
-            return False # Digit already exists in this collumn
+    for cell in lookup_table[tile_num]:
+        if board[cell] == digit:
+            return False # Digit already exists in this tile
 
 
 
