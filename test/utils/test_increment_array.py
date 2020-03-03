@@ -1,6 +1,6 @@
 import pytest
 
-from sudoku.utils import increment_array
+from src.sudoku.common.utils import increment_array
 
 # Test increment_array()
 def test_null_value():

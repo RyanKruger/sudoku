@@ -1,6 +1,6 @@
 import pytest
 
-from sudoku.backtrack import find_unassigned
+from src.sudoku.common.backtrack import find_unassigned
 
 # Test find_unassigned()
 def test_null_board():

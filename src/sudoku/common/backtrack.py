@@ -26,14 +26,14 @@ class Board:
 
     # An empty board
     board = [
-        0, 0, 0, 0, 0, 0, 0, 0, 0
-        0, 1, 2, 0, 3, 4, 5, 6, 7
-        0, 3, 4, 5, 0, 6, 1, 8, 2
-        0, 0, 1, 0, 5, 8, 2, 0, 6
-        0, 0, 8, 6, 0, 0, 0, 0, 1
-        0, 2, 0, 0, 0, 7, 0, 5, 0
-        0, 0, 3, 7, 0, 5, 0, 2, 8
-        0, 8, 0, 0, 6, 0, 7, 0, 0
+        0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 1, 2, 0, 3, 4, 5, 6, 7,
+        0, 3, 4, 5, 0, 6, 1, 8, 2,
+        0, 0, 1, 0, 5, 8, 2, 0, 6,
+        0, 0, 8, 6, 0, 0, 0, 0, 1,
+        0, 2, 0, 0, 0, 7, 0, 5, 0,
+        0, 0, 3, 7, 0, 5, 0, 2, 8,
+        0, 8, 0, 0, 6, 0, 7, 0, 0,
         2, 0, 7, 0, 8, 3, 6, 1, 5
     ]
 
@@ -57,8 +57,8 @@ def fill_grid(board: Board) -> bool:
     for digit in range(1,9):
         good_fit = is_good_fit(board, unassigned_cell, digit)
         if good_fit == True:
-                board[unassigned_cell] = digit # Assign the digit.
-                recursion_successful = fill_grid(board)
+            board[unassigned_cell] = digit # Assign the digit.
+            recursion_successful = fill_grid(board)
             if recursion_succesful:
                 return True
             else:
@@ -177,9 +177,9 @@ def check_tile(board: Board, unassigned_cell: int, digit: int) -> bool:
     
     if board_width != 4 and board_width != 9:
         raise ValueError(f"ERROR: Oops! I didn't handle board width {board_width}.")
-    else if board_width == 4:
+    elif board_width == 4:
         lookup_table = four_indices
-    else if board_width == 9:
+    elif board_width == 9:
         lookup_table = nine_indices
 
     for indices in lookup_table:
