@@ -1,8 +1,8 @@
 # Creates a 4x4 Sudoku board with brute force!
 
-import utils
-
 import math
+
+
 
 """
 A mini-sudoku board is a 4x4 grid of digits [1-4]
