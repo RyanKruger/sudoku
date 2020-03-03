@@ -2,6 +2,8 @@
 
 import utils
 
+import math
+
 """
 A mini-sudoku board is a 4x4 grid of digits [1-4]
 Each row must contain exactly one of each digit [1-4]
@@ -39,34 +41,33 @@ class Board:
             string += '\n'
         return string
 
-def generateAllBoards():
+def generateAllBoards(board: Board):
     '''Creates a 4x4 Board of every possible combination of numbers
     including illegal boardstates.
     '''
+    NUMBOARDS = 1
+    RADIX = 4
+    SIDE_LEN = 4
 
-    # Init board to all 1's
-    board = Board()
-    for i in range(16):
-        board.set_num(i,1)
     print(board)
-    print("\n")
 
     # Generate the first 4 boards
-    for boardNum in range(1):
-        for msb in range(4*4):
-            ptr = 15
-            while board.get_num(ptr) == 4:
-                board.set_num(ptr, 1)
+    for boardNum in range(NUMBOARDS):
+        for msb in range(RADIX**10):
+            ptr = (SIDE_LEN * SIDE_LEN) - 1
+            while board.get_num(ptr) == (RADIX - 1):
+                board.set_num(ptr, 0)
                 ptr -= 1
             else:
                 board.set_num(ptr, board.get_num(ptr) + 1)
             print(board)
-            print("\n")
+
 
 
 
 def main():
-    generateAllBoards()
+    board = Board()
+    generateAllBoards(board)
 
 
 if __name__ == "__main__":

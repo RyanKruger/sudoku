@@ -6,7 +6,8 @@ def eprint(*args, **kwargs):
     print(*args, file=sys.stderr, **kwargs)
 
 def increment_array(input_list: list, base: int) -> list:
-    '''Increments a list of numbers for a given radix:
+    '''Increments a list of numbers for a given radix. Will not increment
+    beyond the maximum representable value.
 
     EX: Base 2
        [0,0,0,0]
@@ -51,7 +52,8 @@ def increment_array(input_list: list, base: int) -> list:
 
 
 def decrement_array(input_list: list, base: int) -> list:
-    '''Decrements a list of numbers for a given radix:
+    '''Decrements a list of numbers for a given radix. Will not decrement
+    beyond 0.
 
     EX: Base 2
        [0,0,1,1]
