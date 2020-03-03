@@ -34,6 +34,9 @@ class Board:
     def get_num(self, index: int) -> int:
         return self.board[index]
 
+    def get_width(self) -> int:
+        return math.sqrt(len(self.board))
+
     def __str__(self):
         string = ''
         for index in range(0,16,4):
@@ -58,8 +61,7 @@ def generateAllBoards(board: Board):
             while board.get_num(ptr) == (RADIX - 1):
                 board.set_num(ptr, 0)
                 ptr -= 1
-            else:
-                board.set_num(ptr, board.get_num(ptr) + 1)
+            board.set_num(ptr, board.get_num(ptr) + 1)
             print(board)
 
 
