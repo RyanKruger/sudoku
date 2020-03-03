@@ -3,13 +3,14 @@ import pytest
 from src.sudoku.common.backtrack import find_unassigned
 
 # Test find_unassigned()
-def test_null_board():
+def test_null_sudoku():
     data = None
     with pytest.raises(ValueError):
         result = find_unassigned(data)
 
 def test_empty_board():
-    data = []
+    data = Board()
+    data.board = []
     result = find_unassigned(data)
     assert(result is None)
 

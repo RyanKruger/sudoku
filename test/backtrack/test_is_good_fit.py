@@ -1,16 +1,23 @@
 import pytest
 
 from src.sudoku.common.backtrack import is_good_fit
-
+from src.sudoku.sudoku9x9.sudoku_gen import Sudoku
 
 # Test is_good_fit()
-def test_null_board():
+def test_null_sudoku():
     data = None
     with pytest.raises(ValueError):
         result = find_unassigned(data)
 
+def test_empty_board():
+    data = Board()
+    data.board = []
+    result = find_unassigned(data)
+    assert(result is None)
+
 def test_row_fail():
-    data = [
+    data = Sudoku()
+    data.board = [
         #
         0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 1, 2, 0, 3, 4, 5, 6, 7, # Index 9
@@ -26,7 +33,8 @@ def test_row_fail():
     assert(result is False)
 
 def test_col_fail():
-    data = [
+    data = Sudoku()
+    data.board = [
         #
         0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 1, 2, 0, 3, 4, 5, 6, 7,
@@ -42,7 +50,8 @@ def test_col_fail():
     assert(result is False)
 
 def test_first_tile_fail():
-    data = [
+    data = Sudoku()
+    data.board = [
         #
         0, 0, 0, 0, 0, 1, 0, 0, 0, # Index 0
         0, 1, 2, 0, 3, 4, 5, 6, 7,
@@ -58,7 +67,8 @@ def test_first_tile_fail():
     assert(result is False)
 
 def test_fifth_tile_fail():
-    data = [
+    data = Sudoku()
+    data.board = [
                     #
         0, 0, 0, 0, 0, 1, 0, 0, 0,
         0, 1, 2, 0, 3, 4, 5, 6, 7,
@@ -74,7 +84,8 @@ def test_fifth_tile_fail():
     assert(result is False)
 
 def test_first_tile_success():
-    data = [
+    data = Sudoku()
+    data.board = [
         #
         0, 0, 0, 0, 0, 1, 0, 0, 0, # Index 0
         0, 1, 2, 0, 3, 4, 5, 6, 7,
@@ -90,7 +101,8 @@ def test_first_tile_success():
     assert(result is True)
 
 def test_fifth_tile_fail():
-    data = [
+    data = Sudoku()
+    data.board = [
                     #
         0, 0, 0, 0, 0, 1, 0, 0, 0,
         0, 1, 2, 0, 3, 4, 5, 6, 7,
