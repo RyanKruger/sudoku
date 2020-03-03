@@ -1,6 +1,6 @@
 import pytest
 
-from utils import decrement_array
+from sudoku.utils import decrement_array
 
 # Test decrement_array()
 def test_null_value():

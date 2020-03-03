@@ -1,6 +1,6 @@
 import pytest
 
-from backtrack import is_good_fit
+from sudoku.backtrack import is_good_fit
 
 
 # Test is_good_fit()
