@@ -45,8 +45,7 @@ def increment_array(input_list: list, base: int) -> list:
     while input_list[ptr] == base - 1:
         input_list[ptr] = 0
         ptr -= 1
-    else:
-        input_list[ptr] += 1
+    input_list[ptr] += 1
     return input_list
 
 
