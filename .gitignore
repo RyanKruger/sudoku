@@ -10,3 +10,8 @@ venv
 # Python
 __pycache__
 *.pyc
+.pytest_cache
+
+# Setuptools
+dist
+build
