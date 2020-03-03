@@ -1,4 +1,4 @@
-# Creates a 4x4 Sudoku board with brute force!
+# Creates a 4x4 Sudoku board.
 
 import math
 
@@ -19,8 +19,9 @@ A sample solved boardstate may look like:
 
 """
 
-class Board:
+class Sudoku:
     
+    # An empty board
     board = [
         0, 0, 0, 0,
         0, 0, 0, 0,
@@ -35,41 +36,42 @@ class Board:
         return self.board[index]
 
     def get_width(self) -> int:
-        return math.sqrt(len(self.board))
+        return int(math.sqrt(len(self.board)))
 
-    def __str__(self):
+    def __str__(self) -> str:
         string = ''
-        for index in range(0,16,4):
-            string += ','.join(str(digit) for digit in self.board[index:index+4])
+        for index in range(0,len(self.board),self.get_width()):
+            string += ', '.join(str(digit) for digit in self.board[index:index+self.get_width()])
             string += '\n'
         return string
 
-def generateAllBoards(board: Board):
-    '''Creates a 4x4 Board of every possible combination of numbers
-    including illegal boardstates.
+
+def generateAllSudokus(sudoku: Sudoku):
+    '''Creates a 4x4 Sudoku of every possible combination of numbers
+    including illegal board states.
     '''
     NUMBOARDS = 1
     RADIX = 4
     SIDE_LEN = 4
 
-    print(board)
+    print(sudoku)
 
     # Generate the first 4 boards
     for boardNum in range(NUMBOARDS):
         for msb in range(RADIX**10):
             ptr = (SIDE_LEN * SIDE_LEN) - 1
-            while board.get_num(ptr) == (RADIX - 1):
-                board.set_num(ptr, 0)
+            while sudoku.board[ptr] == (RADIX - 1):
+                sudoku.set_num(ptr, 0)
                 ptr -= 1
-            board.set_num(ptr, board.get_num(ptr) + 1)
-            print(board)
+            sudoku.set_num(ptr, sudoku.board[ptr] + 1)
+            print(sudoku)
 
 
 
 
 def main():
-    board = Board()
-    generateAllBoards(board)
+    sudoku = Sudoku()
+    generateAllSudokus(sudoku)
 
 
 if __name__ == "__main__":

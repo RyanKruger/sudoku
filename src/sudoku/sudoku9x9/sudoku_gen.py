@@ -1,6 +1,8 @@
 # Creates a Sudoku board.
 # Thank you https://github.com/techwithtim/ for the inspiration!
 
+import math
+
 """
 A sudoku board is a 9x9 grid of digits [1-9]
 Each row must contain exactly one of each digit [1-9]
@@ -39,25 +41,40 @@ A puzzle can be created by removing some of the numbers (different board):
 
 """
 
-class Board:
+class Sudoku:
 
     # An empty board
     board = [
-        [0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0]
+        0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0
     ]
 
+    def set_num(self, index: int, value: int) -> None:
+        self.board[index] = value
+
+    def get_num(self, index: int) -> int:
+        return self.board[index]
+
+    def get_width(self) -> float:
+        return int(math.sqrt(len(self.board)))
+
+    def __str__(self) -> str:
+        string = ''
+        for index in range(0,len(self.board),self.get_width()):
+            string += ', '.join(str(digit) for digit in self.board[index:index+self.get_width()])
+            string += '\n'
+        return string
 
 
 def main():
-
+    pass
 
 
 if __name__ == "__main__":
