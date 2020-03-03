@@ -1,4 +1,5 @@
 import pytest
+import backtrack
 
 from backtrack import fill_grid
 
