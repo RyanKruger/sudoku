@@ -1,7 +1,6 @@
 import pytest
-import minisudoku
 
-from minisudoku.utils import *
+from utils import increment_array
 
 # Test increment_array()
 def test_null_value():

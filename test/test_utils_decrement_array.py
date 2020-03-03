@@ -1,7 +1,6 @@
 import pytest
-import minisudoku
 
-from minisudoku.utils import *
+from utils import decrement_array
 
 # Test decrement_array()
 def test_null_value():

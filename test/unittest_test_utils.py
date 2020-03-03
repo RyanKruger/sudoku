@@ -1,7 +1,6 @@
 import unittest
-import minisudoku
 
-from minisudoku.utils import *
+from utils import *
 
 class TestIncrement(unittest.TestCase):
     def test_null_value(self):
