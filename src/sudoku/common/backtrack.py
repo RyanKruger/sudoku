@@ -100,6 +100,9 @@ def check_rows(sudoku: Sudoku, unassigned_cell: int, digit: int) -> bool:
     Returns:
         Boolean of if the digit will fit in that row or not.
     '''
+    if sudoku is None:
+        raise ValueError("ERROR: sudoku is None. Can't check_rows.")
+
     board_width = sudoku.get_width()
     if board_width < 1:
         raise ValueError(f"ERROR: board_width is {board_width}. Can't check_rows.")
@@ -107,6 +110,7 @@ def check_rows(sudoku: Sudoku, unassigned_cell: int, digit: int) -> bool:
     for i in range(row*board_width, row*board_width+board_width):
         if sudoku.board[i] == digit:
             return False # Digit already exists in this row
+    return True
 
 
 def check_cols(sudoku: Sudoku, unassigned_cell: int, digit: int) -> bool:
@@ -120,6 +124,9 @@ def check_cols(sudoku: Sudoku, unassigned_cell: int, digit: int) -> bool:
     Returns:
         Boolean of if the digit will fit in that collumn or not.
     '''
+    if sudoku is None:
+        raise ValueError("ERROR: sudoku is None. Can't check_cols.")
+
     board_width = sudoku.get_width()
     if board_width < 1:
         raise ValueError(f"ERROR: board_width is {board_width}. Can't check_cols.")
@@ -127,7 +134,7 @@ def check_cols(sudoku: Sudoku, unassigned_cell: int, digit: int) -> bool:
     for i in range(col, (board_width**2)+col, board_width):
         if sudoku.board[i] == digit:
             return False # Digit already exists in this collumn
-
+    return True
 
 def check_tile(sudoku: Sudoku, unassigned_cell: int, digit: int) -> bool:
     '''Checks to see if the ``digit`` at ``unassigned_cell`` is valid for its tile.
@@ -141,6 +148,9 @@ def check_tile(sudoku: Sudoku, unassigned_cell: int, digit: int) -> bool:
     Returns:
         Boolean of if the digit will fit in that tile or not.
     '''
+    if sudoku is None:
+        raise ValueError("ERROR: sudoku is None. Can't check_tile.")
+
     board_width = sudoku.get_width()
     tile_width = math.sqrt(board_width)
 
@@ -176,8 +186,9 @@ def check_tile(sudoku: Sudoku, unassigned_cell: int, digit: int) -> bool:
         raise ElementNotFoundError("ERROR: Could not find element in lookup table.")
 
     for cell in lookup_table[tile_num]:
-        if board[cell] == digit:
+        if sudoku.board[cell] == digit:
             return False # Digit already exists in this tile
+    return True
 
 
 

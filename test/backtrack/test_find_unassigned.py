@@ -1,31 +1,35 @@
 import pytest
 
 from src.sudoku.common.backtrack import find_unassigned
+from src.sudoku.sudoku9x9.sudoku_gen import Sudoku
 
 # Test find_unassigned()
 def test_null_sudoku():
     data = None
     with pytest.raises(ValueError):
-        result = find_unassigned(data)
+        find_unassigned(data)
 
 def test_empty_board():
-    data = Board()
+    data = Sudoku()
     data.board = []
     result = find_unassigned(data)
     assert(result is None)
 
 def test_zero():
-    data = [0,0,0,0]
+    data = Sudoku()
+    data.board = [0,0,0,0]
     result = find_unassigned(data)
     assert(result == 0)
 
 def test_middle():
-    data = [1,2,0,4]
+    data = Sudoku()
+    data.board = [1,2,0,4]
     result = find_unassigned(data)
     assert(result == 2)
 
 def test_none_empty():
-    data = [1,2,3,4]
+    data = Sudoku()
+    data.board = [1,2,3,4]
     result = find_unassigned(data)
     assert(result is None)
 
