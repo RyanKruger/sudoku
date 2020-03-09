@@ -35,8 +35,11 @@ class Sudoku:
     def get_num(self, index: int) -> int:
         return self.board[index]
 
-    def get_width(self) -> int:
-        return int(math.sqrt(len(self.board)))
+    def get_width(self) -> float:
+        width = math.sqrt(len(self.board))
+        if width != 4.0:
+            raise ValueError(f"ERROR: Found width to be {width}. Expected 4 for a 4x4 board.")
+        return 4
 
     def __str__(self) -> str:
         string = ''

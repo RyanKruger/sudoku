@@ -152,7 +152,6 @@ def check_tile(sudoku: Sudoku, unassigned_cell: int, digit: int) -> bool:
         raise ValueError("ERROR: sudoku is None. Can't check_tile.")
 
     board_width = sudoku.get_width()
-    tile_width = math.sqrt(board_width)
 
     four_indices = [[0,1,4,5],     # Tile 0
                     [2,3,6,7],     # Tile 1
@@ -176,9 +175,10 @@ def check_tile(sudoku: Sudoku, unassigned_cell: int, digit: int) -> bool:
     elif board_width == 9:
         lookup_table = nine_indices
 
-    for indices in lookup_table:
+    for i, tile in enumerate(lookup_table):
         try:
-            tile_num = indices.index(unassigned_cell)
+            tile.index(unassigned_cell)
+            tile_num = i
             break
         except ValueError:
             pass # Keep looking
