@@ -36,7 +36,7 @@ def fill_grid(sudoku: Sudoku) -> bool:
     Returns:
         Boolean of if a valid digit could be placed.
     '''
-    unassigned_cell = find_unassigned()
+    unassigned_cell = find_unassigned(sudoku)
     if unassigned_cell is None:
         return True
     for digit in range(1,9):
@@ -44,7 +44,7 @@ def fill_grid(sudoku: Sudoku) -> bool:
         if good_fit == True:
             sudoku.set_num(unassigned_cell, digit)
             recursion_successful = fill_grid(sudoku)
-            if recursion_succesful:
+            if recursion_successful:
                 return True
             else:
                 sudoku.set_num(unassigned_cell, 0) # Remove the digit.
